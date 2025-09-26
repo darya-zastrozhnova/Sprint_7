@@ -39,7 +39,7 @@ public class CourierTests extends BaseTest {
     public void shouldCreateCourierDuplicate() {
 
         courierSteps
-                .createDuplicateCourier(duplicateCourier)
+                .createCourier(duplicateCourier)
                 .statusCode(409)
                 .body("message", is("Этот логин уже используется"));
     }

@@ -37,7 +37,7 @@ public class CourierSteps {
     }
 
     @Step
-    public ValidatableResponse createDuplicateCourier(DuplicateCourier courier) {
+    public ValidatableResponse createCourier(DuplicateCourier courier) {
         return given()
                 .body(courier)
                 .when()
