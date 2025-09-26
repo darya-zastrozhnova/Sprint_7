@@ -1,5 +1,6 @@
 package ru.yandex.practicum.tests;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -39,8 +40,16 @@ public class OrderTests extends BaseTest {
     @Test
     public void testOrderCreation() {
         courierSteps
-                .OrderCreation(order)
+                .orderCreation(order)
                 .statusCode(201)
                 .body("track", notNullValue());
+    }
+
+    @After
+    public void tearDown() {
+       Integer id = courierSteps.orderCreation(order)
+                .extract()
+                        .path("track");
+        courierSteps.cancelOrder(id.toString());
     }
 }

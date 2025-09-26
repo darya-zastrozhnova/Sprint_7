@@ -8,6 +8,7 @@ import ru.yandex.practicum.model.Courier;
 import ru.yandex.practicum.model.DuplicateCourier;
 import ru.yandex.practicum.model.Order;
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.notNullValue;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CourierSteps {
@@ -16,6 +17,7 @@ public class CourierSteps {
     public static final String LOGIN = "/api/v1/courier/login";
     public static final String ORDER = "/api/v1/orders";
     public static final String ORDERLIST = "/api/v1/orders";
+    public static final String CANCEL = "/api/v1/orders/cancel";
 
     @Step
     public ValidatableResponse createCourier(Courier courier) {
@@ -81,7 +83,7 @@ public class CourierSteps {
         }
 
         @Step
-        public ValidatableResponse OrderCreation(Order order){
+        public ValidatableResponse orderCreation(Order order){
         return given()
                 .body(order)
                 .when()
@@ -95,6 +97,13 @@ public class CourierSteps {
                 .get(ORDERLIST)
                 .then();
     }
-
+    @Step
+    public ValidatableResponse cancelOrder(String track){
+        return given()
+                .body("{\"track\": \"" + track + "\"}")
+                .when()
+                .put(CANCEL)
+                .then();
+    }
 
 }
