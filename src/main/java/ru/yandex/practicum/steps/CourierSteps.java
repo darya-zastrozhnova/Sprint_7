@@ -2,6 +2,7 @@ package ru.yandex.practicum.steps;
 
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import io.qameta.allure.Step;
 import io.restassured.response.ValidatableResponse;
 import ru.yandex.practicum.model.Courier;
 import ru.yandex.practicum.model.DuplicateCourier;
@@ -16,6 +17,7 @@ public class CourierSteps {
     public static final String ORDER = "/api/v1/orders";
     public static final String ORDERLIST = "/api/v1/orders";
 
+    @Step
     public ValidatableResponse createCourier(Courier courier) {
         return given()
                 .body(courier)
@@ -25,7 +27,7 @@ public class CourierSteps {
     }
 
 
-
+@Step
     public ValidatableResponse login(Courier courier) {
         return given()
                 .body(courier)
@@ -34,6 +36,7 @@ public class CourierSteps {
                 .then();
     }
 
+    @Step
     public ValidatableResponse createDuplicateCourier(DuplicateCourier courier) {
         return given()
                 .body(courier)
@@ -42,6 +45,7 @@ public class CourierSteps {
                 .then();
     }
 
+    @Step
     public ValidatableResponse createCourierWithoutRequiredFields() {
         return given()
                 .when()
@@ -49,6 +53,7 @@ public class CourierSteps {
                 .then();
     }
 
+    @Step
     public ValidatableResponse wrongCredentials(DuplicateCourier duplicateCourier) {
         return given()
                 .body(duplicateCourier)
@@ -57,6 +62,7 @@ public class CourierSteps {
                 .then();
     }
 
+    @Step
     public ValidatableResponse nonExistingCourier(DuplicateCourier duplicateCourier) {
         return given()
                 .body(duplicateCourier)
@@ -65,6 +71,7 @@ public class CourierSteps {
                 .then();
     }
 
+        @Step
         public ValidatableResponse deleteCourier (Courier courier){
             return given()
                     .pathParams("id", courier.getId())
@@ -73,6 +80,7 @@ public class CourierSteps {
                     .then();
         }
 
+        @Step
         public ValidatableResponse OrderCreation(Order order){
         return given()
                 .body(order)
@@ -80,8 +88,8 @@ public class CourierSteps {
                 .post(ORDER)
                 .then();
         }
-
-    public ValidatableResponse getOrdersList(){
+        @Step
+        public ValidatableResponse getOrdersList(){
         return given()
                 .when()
                 .get(ORDERLIST)
