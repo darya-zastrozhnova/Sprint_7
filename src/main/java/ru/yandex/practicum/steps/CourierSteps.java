@@ -73,6 +73,24 @@ public class CourierSteps {
                 .then();
     }
 
+    @Step
+    public ValidatableResponse loginWithoutLogin(DuplicateCourier duplicateCourier) {
+        return given()
+                .body(duplicateCourier)
+                .when()
+                .post(LOGIN)
+                .then();
+    }
+
+    @Step
+    public ValidatableResponse loginWithoutPassword(DuplicateCourier duplicateCourier) {
+        return given()
+                .body(duplicateCourier)
+                .when()
+                .post(LOGIN)
+                .then();
+    }
+
         @Step
         public ValidatableResponse deleteCourier (Courier courier){
             return given()

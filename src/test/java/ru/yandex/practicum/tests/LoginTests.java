@@ -17,6 +17,8 @@ public class LoginTests extends BaseTest {
     private Courier courier;
     private DuplicateCourier wrongCredentials;
     private DuplicateCourier nonExistingCourier;
+    private DuplicateCourier loginWithoutLogin;
+    private DuplicateCourier loginWithoutPassword;
 
     @Before
     public void setUp() {
@@ -29,6 +31,13 @@ public class LoginTests extends BaseTest {
         nonExistingCourier = new DuplicateCourier();
         nonExistingCourier.setLogin("non_existing_login");
         nonExistingCourier.setPassword(RandomStringUtils.randomAlphabetic(12));
+        loginWithoutLogin = new DuplicateCourier();
+        loginWithoutLogin.setLogin("");
+        loginWithoutLogin.setPassword(RandomStringUtils.randomAlphabetic(12));
+        loginWithoutPassword = new DuplicateCourier();
+        loginWithoutPassword.setLogin(RandomStringUtils.randomAlphabetic(12));
+        loginWithoutPassword.setPassword("");
+
         courierSteps
                 .createCourier(courier);
     }
@@ -58,6 +67,24 @@ public class LoginTests extends BaseTest {
                 .nonExistingCourier(nonExistingCourier)
                 .statusCode(404)
                 .body("message", is("Учетная запись не найдена"));
+    }
+
+    @Test
+    public void shouldNotAuthorizationWithoutLogin() {
+
+        courierSteps
+                .loginWithoutLogin(loginWithoutLogin)
+                .statusCode(400)
+                .body("message", is("Недостаточно данных для входа"));
+    }
+
+    @Test
+    public void shouldNotAuthorizationWithoutPassword() {
+
+        courierSteps
+                .loginWithoutPassword(loginWithoutPassword)
+                .statusCode(400)
+                .body("message", is("Недостаточно данных для входа"));
     }
 
     @After
