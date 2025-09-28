@@ -8,7 +8,6 @@ import ru.yandex.practicum.model.Courier;
 import ru.yandex.practicum.model.DuplicateCourier;
 import ru.yandex.practicum.model.Order;
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.notNullValue;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class CourierSteps {
